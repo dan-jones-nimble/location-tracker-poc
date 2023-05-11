@@ -1,0 +1,107 @@
+{
+  "testRunner": {
+    "args": {
+      "$0": "jest",
+      "config": "./jest.config.json"
+    },
+    "jest": {
+      "setupTimeout": 120000
+    }
+  },
+  "apps": {
+    "ios.debug": {
+      "type": "ios.app",
+      "build": "cd ../../apps/native-app/ios && xcodebuild -workspace NativeApp.xcworkspace -scheme NativeApp -configuration Debug -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 14' -derivedDataPath ./build -quiet",
+      "binaryPath": "../../apps/native-app/ios/build/Build/Products/Debug-iphonesimulator/NativeApp.app"
+    },
+    "ios.release": {
+      "type": "ios.app",
+      "build": "cd ../../apps/native-app/ios && xcodebuild -workspace NativeApp.xcworkspace -scheme NativeApp -configuration Release -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 14' -derivedDataPath ./build -quiet",
+      "binaryPath": "../../apps/native-app/ios/build/Build/Products/Release-iphonesimulator/NativeApp.app"
+    },
+
+    "ios.eas": {
+      "type": "ios.app",
+      "build": "npx nx run native-app:download --platform ios --distribution simulator --output=../../apps/native-app/dist/",
+      "binaryPath": "../../apps/native-app/dist/NativeApp.app"
+    },
+    "ios.local": {
+      "type": "ios.app",
+      "build": "npx nx run native-app:build --platform ios --profile preview --wait --local --no-interactive --output=../../apps/native-app/dist/NativeApp.tar.gz",
+      "binaryPath": "../../apps/native-app/dist/NativeApp.app"
+    },
+
+    "android.debug": {
+      "type": "android.apk",
+      "build": "cd ../../apps/native-app/android && ./gradlew assembleDebug assembleAndroidTest -DtestBuildType=debug",
+      "binaryPath": "../../apps/native-app/android/app/build/outputs/apk/debug/app-debug.apk"
+    },
+    "android.release": {
+      "type": "android.apk",
+      "build": "cd ../../apps/native-app/android && ./gradlew assembleRelease assembleAndroidTest -DtestBuildType=release",
+      "binaryPath": "../../apps/native-app/android/app/build/outputs/apk/release/app-release.apk"
+    },
+
+    "android.eas": {
+      "type": "android.apk",
+      "build": "npx nx run native-app:download --platform android --output=../../apps/native-app/dist/",
+      "binaryPath": "../../apps/native-app/dist/NativeApp.apk"
+    },
+    "android.local": {
+      "type": "android.apk",
+      "build": "npx nx run native-app:build --platform android --profile preview --wait --local --no-interactive --output=../../apps/native-app/dist/NativeApp.apk",
+      "binaryPath": "../../apps/native-app/dist/NativeApp.apk"
+    }
+  },
+  "devices": {
+    "simulator": {
+      "type": "ios.simulator",
+      "device": {
+        "type": "iPhone 14"
+      }
+    },
+    "emulator": {
+      "type": "android.emulator",
+      "device": {
+        "avdName": "Pixel_4a_API_30"
+      }
+    }
+  },
+  "configurations": {
+    "ios.sim.release": {
+      "device": "simulator",
+      "app": "ios.release"
+    },
+    "ios.sim.debug": {
+      "device": "simulator",
+      "app": "ios.debug"
+    },
+
+    "ios.sim.eas": {
+      "device": "simulator",
+      "app": "ios.eas"
+    },
+    "ios.sim.local": {
+      "device": "simulator",
+      "app": "ios.local"
+    },
+
+    "android.emu.release": {
+      "device": "emulator",
+      "app": "android.release"
+    },
+    "android.emu.debug": {
+      "device": "emulator",
+      "app": "android.debug"
+    },
+
+    "android.emu.eas": {
+      "device": "emulator",
+      "app": "android.eas"
+    },
+    "android.emu.local": {
+      "device": "emulator",
+      "app": "android.local"
+    }
+  }
+}
