@@ -3,23 +3,35 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "start:native": "nx start native-app"
+    "start:door": "nx start door-to-door-app",
+    "start:delivery": "nx start delivery-app"
   },
   "private": true,
   "dependencies": {
     "@expo/metro-config": "0.7.1",
+    "appwrite": "^11.0.0",
     "expo": "48.0.15",
+    "expo-constants": "^14.2.1",
+    "expo-linking": "^4.0.1",
+    "expo-location": "^15.1.1",
+    "expo-router": "^1.5.3",
     "expo-splash-screen": "~0.18.2",
-    "expo-status-bar": "~1.4.4",
+    "expo-status-bar": "^1.4.4",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-native": "0.71.7",
+    "react-native-gesture-handler": "~2.9.0",
+    "react-native-reanimated": "~2.14.4",
+    "react-native-safe-area-context": "^4.5.2",
+    "react-native-screens": "^3.20.0",
     "react-native-svg": "13.4.0",
     "react-native-svg-transformer": "1.0.0",
     "react-native-web": "~0.18.12",
     "tslib": "^2.3.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.19.3",
+    "@babel/plugin-proposal-export-namespace-from": "^7.18.9",
     "@config-plugins/detox": "~5.0.1",
     "@expo/cli": "~0.7.1",
     "@nx/detox": "16.1.4",

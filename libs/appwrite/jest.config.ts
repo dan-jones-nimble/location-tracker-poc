@@ -1,5 +1,5 @@
 module.exports = {
-  displayName: 'native-app',
+  displayName: 'appwrite',
   resolver: '@nx/jest/plugins/resolver',
   preset: 'jest-expo',
   transformIgnorePatterns: [

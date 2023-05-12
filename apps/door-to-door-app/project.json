@@ -1,16 +1,19 @@
 {
-  "name": "native-app",
+  "name": "door-to-door-app",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "apps/native-app/src",
+  "sourceRoot": "apps/door-to-door-app/src",
   "projectType": "application",
   "targets": {
     "start": {
-      "executor": "@nx/expo:start"
+      "executor": "@nx/expo:start",
+      "options": {
+        "tunnel": true
+      }
     },
     "serve": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "nx start native-app"
+        "command": "nx start door-to-door-app"
       }
     },
     "run-ios": {
@@ -36,7 +39,7 @@
     "download": {
       "executor": "@nx/expo:download",
       "options": {
-        "output": "apps/native-app/dist"
+        "output": "apps/door-to-door-app/dist"
       }
     },
     "sync-deps": {
@@ -63,7 +66,7 @@
       "executor": "@nx/expo:export",
       "options": {
         "platform": "all",
-        "outputDir": "../../dist/apps/native-app"
+        "outputDir": "../../dist/apps/door-to-door-app"
       }
     },
     "export-web": {
@@ -76,14 +79,14 @@
       "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["apps/native-app/**/*.{ts,tsx,js,jsx}"]
+        "lintFilePatterns": ["apps/door-to-door-app/**/*.{ts,tsx,js,jsx}"]
       }
     },
     "test": {
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "jestConfig": "apps/native-app/jest.config.ts",
+        "jestConfig": "apps/door-to-door-app/jest.config.ts",
         "passWithNoTests": true
       },
       "configurations": {

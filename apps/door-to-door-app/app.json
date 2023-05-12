@@ -1,7 +1,8 @@
 {
   "expo": {
-    "name": "NativeApp",
-    "slug": "native-app",
+    "scheme": "acme",
+    "name": "DoorToDoor",
+    "slug": "door-to-door-app",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
