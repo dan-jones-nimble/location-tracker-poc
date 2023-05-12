@@ -7,7 +7,7 @@ import {
 } from 'expo-location';
 
 // Appwrite functions
-import { SendLocationPing } from '@nx-expo/appwrite';
+import { sendLocationPing } from '@nx-expo/appwrite';
 
 export const TrackerPrompt = () => {
   const [location, setLocation] = useState<LocationObject>();
@@ -19,14 +19,14 @@ export const TrackerPrompt = () => {
         return;
       }
 
-      const location = await getCurrentPositionAsync({});
+      const location = await getCurrentPositionAsync();
 
       setLocation(location);
     })();
   }, []);
 
   useEffect(() => {
-    if (location) SendLocationPing(location);
+    if (location) sendLocationPing(location);
   }, [location]);
 
   return <Text>You are being tracked...</Text>;

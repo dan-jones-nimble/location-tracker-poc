@@ -1,15 +1,17 @@
+// Imports
 import { useEffect, useState } from 'react';
 import { Button, StyleSheet, TextInput, View } from 'react-native';
 import { SplashScreen } from 'expo-router';
+
 // Components
 import { TrackerPrompt } from '../components';
 
 // Appwrite
-import { Login, GetAccount } from '@nx-expo/appwrite';
+import { getAccount, emailLogin } from '@nx-expo/appwrite';
 
 export default function HomeScreen() {
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [credentials, setCredentials] = useState<{
     email: string;
     password: string;
@@ -23,13 +25,13 @@ export default function HomeScreen() {
   };
 
   const getUser = async () => {
-    const account = await GetAccount();
+    const account = await getAccount();
     if (account) setIsLoggedIn(true);
     setLoading(false);
   };
 
   const login = async () => {
-    const login = await Login({
+    const login = await emailLogin({
       email: credentials.email,
       password: credentials.password,
     });

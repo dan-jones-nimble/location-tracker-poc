@@ -1,1 +1,1 @@
-export * from './SendLocationPing';
+export * from './sendLocationPing';
