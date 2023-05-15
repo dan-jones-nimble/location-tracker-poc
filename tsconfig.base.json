@@ -15,7 +15,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@nx-expo/appwrite": ["libs/appwrite/src/index.ts"]
+      "@nx-expo/appwrite": ["libs/appwrite/src/index.ts"],
+      "@nx-expo/location": ["libs/location/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

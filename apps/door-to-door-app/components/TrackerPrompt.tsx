@@ -1,33 +1,12 @@
-import { useEffect, useState } from 'react';
+// Imports
+import { useEffect } from 'react';
 import { Text } from 'react-native';
-import {
-  LocationObject,
-  requestForegroundPermissionsAsync,
-  getCurrentPositionAsync,
-} from 'expo-location';
-
-// Appwrite functions
-import { sendLocationPing } from '@nx-expo/appwrite';
+import { requestPermissions } from '@nx-expo/location';
 
 export const TrackerPrompt = () => {
-  const [location, setLocation] = useState<LocationObject>();
-
   useEffect(() => {
-    (async () => {
-      const { status } = await requestForegroundPermissionsAsync();
-      if (status !== 'granted') {
-        return;
-      }
-
-      const location = await getCurrentPositionAsync();
-
-      setLocation(location);
-    })();
+    requestPermissions();
   }, []);
-
-  useEffect(() => {
-    if (location) sendLocationPing(location);
-  }, [location]);
 
   return <Text>You are being tracked...</Text>;
 };
