@@ -1,4 +1,5 @@
 import {
+  LocationAccuracy,
   LocationObject,
   requestBackgroundPermissionsAsync,
   requestForegroundPermissionsAsync,
@@ -19,7 +20,10 @@ export const requestPermissions = async () => {
     const { status: backgroundStatus } =
       await requestBackgroundPermissionsAsync();
     if (backgroundStatus === 'granted') {
-      await startLocationUpdatesAsync(LOCATION_TASK_NAME);
+      await startLocationUpdatesAsync(LOCATION_TASK_NAME, {
+        accuracy: LocationAccuracy.High,
+        distanceInterval: 5,
+      });
     }
   }
 };
