@@ -14,8 +14,6 @@ export const requestPermissions = async () => {
   const { status: foregroundStatus } =
     await requestForegroundPermissionsAsync();
 
-  console.log(startLocationUpdatesAsync);
-
   if (foregroundStatus === 'granted') {
     const { status: backgroundStatus } =
       await requestBackgroundPermissionsAsync();
