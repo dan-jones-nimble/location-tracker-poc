@@ -1,11 +1,11 @@
 import {
   LocationAccuracy,
-  LocationObject,
   requestBackgroundPermissionsAsync,
   requestForegroundPermissionsAsync,
   startLocationUpdatesAsync,
 } from 'expo-location';
 import { defineTask } from 'expo-task-manager';
+
 import { sendLocationPing } from '@nx-expo/appwrite';
 
 const LOCATION_TASK_NAME = 'background-location-task';
@@ -26,7 +26,7 @@ export const requestPermissions = async () => {
   }
 };
 
-defineTask<Array<LocationObject>>(LOCATION_TASK_NAME, ({ data, error }) => {
+defineTask(LOCATION_TASK_NAME, ({ data, error }) => {
   if (error) {
     console.log(error.message);
     return;
