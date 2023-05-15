@@ -42,13 +42,13 @@ export default function LoginPage() {
     }
   };
 
-  // useEffect(() => {
-  //   (async () => {
-  //     const user = await getAccount();
+  useEffect(() => {
+    (async () => {
+      const user = await getAccount();
 
-  //     if (user) push('/');
-  //   })();
-  // }, []);
+      if (user) push('/');
+    })();
+  }, [push]);
 
   return (
     <div>
