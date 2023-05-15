@@ -6,8 +6,13 @@ interface ICredentials {
 }
 
 export const emailLogin = async (credentials: ICredentials) => {
-  return await account.createEmailSession(
+  const login = await account.createEmailSession(
     credentials.email,
     credentials.password
   );
+
+  const jwt = await account.createJWT();
+  console.log('jwt: ', jwt);
+
+  return login;
 };
