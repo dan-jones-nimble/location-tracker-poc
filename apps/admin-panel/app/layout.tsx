@@ -18,10 +18,11 @@ export default function RootLayout({
   useEffect(() => {
     (async () => {
       if (pathname !== '/login') {
-        const user = await getAccount();
+        const account = await getAccount();
+        
 
         setLoading(false);
-        if (!user) push('/login');
+        if (!account) push('/login');
       }
     })();
   }, [pathname, push]);
