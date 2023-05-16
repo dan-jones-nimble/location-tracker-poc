@@ -18,4 +18,5 @@ web-build/
 .metro-health-check*
 /.idea/*
 
+# Next.js
 .next/
