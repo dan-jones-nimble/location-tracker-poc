@@ -13,7 +13,7 @@ export const getAccount = async () => {
 
 export const logout = async () => {
   try {
-    const sessions = await account.listSessions();
+    await account.deleteSession('current');
 
     return true;
   } catch (e: any) {
