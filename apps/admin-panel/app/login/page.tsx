@@ -2,13 +2,10 @@
 import { useRouter } from 'next/navigation';
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 
-import { emailLogin, getAccount } from '@nx-expo/appwrite';
+import { ICredentials, emailLogin, getAccount } from '@nx-expo/appwrite';
 
 export default function LoginPage() {
-  const [credentials, setCredentials] = useState<{
-    email: string;
-    password: string;
-  }>({
+  const [credentials, setCredentials] = useState<ICredentials>({
     email: '',
     password: '',
   });

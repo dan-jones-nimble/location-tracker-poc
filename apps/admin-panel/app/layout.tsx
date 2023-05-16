@@ -15,17 +15,19 @@ export default function RootLayout({
 
   const { push } = useRouter();
 
-  useEffect(() => {
-    (async () => {
-      if (pathname !== '/login') {
-        const account = await getAccount();
-        
+  const getUser = async () => {
+    if (pathname !== '/login') {
+      const account = await getAccount();
 
-        setLoading(false);
-        if (!account) push('/login');
-      }
-    })();
-  }, [pathname, push]);
+      setLoading(false);
+      if (!account) push('/login');
+    }
+  };
+
+  useEffect(() => {
+    getUser();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <html lang="en">

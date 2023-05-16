@@ -1,6 +1,6 @@
 import { account } from './account';
 
-interface ICredentials {
+export interface ICredentials {
   email: string;
   password: string;
 }
