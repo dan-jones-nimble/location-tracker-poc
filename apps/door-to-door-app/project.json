@@ -7,7 +7,7 @@
     "start": {
       "executor": "@nx/expo:start",
       "options": {
-        "tunnel": true
+        "tunnel": false
       }
     },
     "serve": {

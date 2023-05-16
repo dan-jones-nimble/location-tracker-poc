@@ -20,10 +20,7 @@ export const sendLocationPing = async (location: LocationObject) => {
         timestamp: location.timestamp,
       }
     )
-    .then((response) => {
-      console.log('ping ping: ', response);
-    })
     .catch((error) => {
-      console.log('Error pinging: ', error);
+      console.error('Error pinging: ', error);
     });
 };
