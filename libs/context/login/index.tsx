@@ -4,7 +4,7 @@ import {
   useCallback,
   useContext,
   useMemo,
-  useState,
+  useState
 } from 'react';
 
 interface ILoginContext {
@@ -13,10 +13,10 @@ interface ILoginContext {
   logOut: () => void;
 }
 
-export const LoggedInContext = createContext<ILoginContext>({
+const LoggedInContext = createContext<ILoginContext>({
   isLoggedIn: false,
   logIn: () => undefined,
-  logOut: () => undefined,
+  logOut: () => undefined
 });
 
 export const useLoggedIn = () => useContext<ILoginContext>(LoggedInContext);
@@ -31,7 +31,7 @@ export const LoggedInWrapper = ({ children }: { children: ReactNode }) => {
     () => ({
       isLoggedIn,
       logIn,
-      logOut,
+      logOut
     }),
     [isLoggedIn, logIn, logOut]
   );
