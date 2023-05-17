@@ -1,12 +1,16 @@
 // Imports
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Text } from 'react-native';
 import { requestPermissions } from '@nx-expo/location';
 
 export const TrackerPrompt = () => {
+  const [text, setText] = useState<string>('You must accept tracking');
+
   useEffect(() => {
-    requestPermissions();
+    requestPermissions()
+      .then(() => setText('You are being tracked...'))
+      .catch((e) => setText(`You aren't being tracked...\n${e.message}`));
   }, []);
 
-  return <Text>You are being tracked...</Text>;
+  return <Text>{text}</Text>;
 };

@@ -17,7 +17,7 @@ export const sendLocationPing = async (location: LocationObject) => {
         altitude: location.coords.altitude,
         latitude: location.coords.latitude,
         longitude: location.coords.longitude,
-        timestamp: location.timestamp,
+        timestamp: location.timestamp
       }
     )
     .catch((error) => {
