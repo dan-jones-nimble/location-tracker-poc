@@ -1,14 +1,16 @@
+import { Platform } from 'react-native';
 import {
   LocationAccuracy,
   requestBackgroundPermissionsAsync,
   requestForegroundPermissionsAsync,
-  startLocationUpdatesAsync
+  startLocationUpdatesAsync,
+  stopLocationUpdatesAsync
 } from 'expo-location';
 import { defineTask } from 'expo-task-manager';
 
 import { sendLocationPing } from '@nx-expo/appwrite';
 
-const LOCATION_TASK_NAME = 'background-location-task';
+const BACKGROUND_LOCATION_TRACKING_TASK_NAME = 'background-location-task';
 
 export const requestPermissions = async () => {
   const { status: foregroundStatus } =
@@ -24,14 +26,26 @@ export const requestPermissions = async () => {
   if (backgroundStatus !== 'granted') {
     throw new Error('You must enable background location services.');
   }
-
-  await startLocationUpdatesAsync(LOCATION_TASK_NAME, {
-    accuracy: LocationAccuracy.High,
-    distanceInterval: 5
-  });
 };
 
-defineTask(LOCATION_TASK_NAME, ({ data, error }) => {
+export const startLocationTracking = async () => {
+  if (Platform.OS !== 'web') {
+    await startLocationUpdatesAsync(BACKGROUND_LOCATION_TRACKING_TASK_NAME, {
+      accuracy: LocationAccuracy.High,
+      distanceInterval: 5
+    });
+  } else {
+    throw new Error('Location tracking not available on Web.');
+  }
+};
+
+export const stopLocationTracking = async () => {
+  if (Platform.OS !== 'web') {
+    await stopLocationUpdatesAsync(BACKGROUND_LOCATION_TRACKING_TASK_NAME);
+  }
+};
+
+defineTask(BACKGROUND_LOCATION_TRACKING_TASK_NAME, ({ data, error }) => {
   if (error) {
     console.log(error.message);
     return;
