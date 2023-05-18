@@ -30,8 +30,8 @@ export default function HomeScreen() {
   return (
     <View style={styles.container}>
       {loading && <SplashScreen />}
-      {!loading && !isLoggedIn && <TrackerPrompt />}
-      {!loading && isLoggedIn && <LoginScreen />}
+      {!loading && isLoggedIn && <TrackerPrompt />}
+      {!loading && !isLoggedIn && <LoginScreen />}
     </View>
   );
 }
