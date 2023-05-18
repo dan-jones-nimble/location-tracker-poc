@@ -1,33 +1,37 @@
 // Import
 import { useState } from 'react';
-import { Button, StyleSheet, TextInput, View } from 'react-native';
+import { StyleSheet, TextInput, View } from 'react-native';
 
 // Context
 import { useLoggedIn } from '@nx-expo/context';
 
 // Appwrite
 import { emailLogin, ICredentials } from '@nx-expo/appwrite';
+import { Button } from '../../Button';
 
 export const LoginScreen = () => {
-  const { logIn } = useLoggedIn();
   const [credentials, setCredentials] = useState<ICredentials>({
     email: '',
     password: ''
   });
+  const [triggerWobble, setTriggerWobble] = useState<boolean>(false);
+  const { logIn } = useLoggedIn();
 
   const handleInput = (name: string, value: string) => {
     setCredentials((prevState) => ({
       ...prevState,
       [name]: value
     }));
+    setTriggerWobble(false);
   };
 
   const submitCredentials = async () => {
-    const attemptedEmailLogin = await emailLogin({
+    emailLogin({
       email: credentials.email,
       password: credentials.password
-    });
-    if (attemptedEmailLogin?.$id) logIn();
+    })
+      .then(logIn)
+      .catch(() => setTriggerWobble(true));
   };
 
   return (
@@ -36,6 +40,7 @@ export const LoginScreen = () => {
         <TextInput
           style={styles.textInput}
           onChange={(e) => handleInput('email', e.nativeEvent.text)}
+          autoCapitalize="none"
           autoComplete="email"
           autoFocus
           textAlign="center"
@@ -44,11 +49,16 @@ export const LoginScreen = () => {
           style={styles.textInput}
           onChange={(e) => handleInput('password', e.nativeEvent.text)}
           aria-hidden
+          autoCapitalize="none"
           autoComplete="current-password"
           textAlign="center"
         />
       </View>
-      <Button title="Log In" onPress={submitCredentials} />
+      <Button
+        title="Log In"
+        onPress={submitCredentials}
+        triggerWobble={triggerWobble}
+      />
     </View>
   );
 };
