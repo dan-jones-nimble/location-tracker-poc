@@ -10,4 +10,5 @@ module.exports = {
   moduleNameMapper: {
     "\\.svg$": "@nx/expo/plugins/jest/svg-mock",
   },
+  testEnvironment: "jsdom",
 };
