@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TrackerPrompt error setting location 1`] = `
+<Text>
+  You aren't being tracked...
+error setting location
+</Text>
+`;
+
+exports[`TrackerPrompt location tracking permission is granted, error tracking location 1`] = `
+<Text>
+  You aren't being tracked...
+error tracking location
+</Text>
+`;
+
+exports[`TrackerPrompt location tracking permission is granted, location tracking is started 1`] = `
+<Text>
+  You are being tracked...
+</Text>
+`;
+
+exports[`TrackerPrompt renders you must accept tracking 1`] = `
+<Text>
+  You must accept tracking
+</Text>
+`;
