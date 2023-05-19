@@ -5,7 +5,8 @@
   "scripts": {
     "start:door": "nx start door-to-door-app",
     "start:delivery": "nx start delivery-app",
-    "start:admin": "nx serve admin-panel"
+    "start:admin": "nx serve admin-panel",
+    "test:door": "nx test door-to-door-app"
   },
   "private": true,
   "dependencies": {
