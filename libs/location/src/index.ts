@@ -32,7 +32,8 @@ export const startLocationTracking = async () => {
   if (Platform.OS !== 'web') {
     await startLocationUpdatesAsync(BACKGROUND_LOCATION_TRACKING_TASK_NAME, {
       accuracy: LocationAccuracy.High,
-      distanceInterval: 5
+      distanceInterval: 5,
+      deferredUpdatesDistance: 5
     });
   } else {
     throw new Error('Location tracking not available on Web.');

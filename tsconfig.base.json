@@ -18,7 +18,8 @@
       "@nx-expo/appwrite": ["libs/appwrite/src/index.ts"],
       "@nx-expo/components": ["libs/components/index.ts"],
       "@nx-expo/context": ["libs/context/index.ts"],
-      "@nx-expo/location": ["libs/location/src/index.ts"]
+      "@nx-expo/location": ["libs/location/src/index.ts"],
+      "@nx-expo/storage": ["libs/storage/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
