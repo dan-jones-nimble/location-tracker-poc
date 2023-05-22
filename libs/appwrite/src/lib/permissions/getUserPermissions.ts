@@ -1,11 +1,7 @@
 import { getAccount } from '../auth';
 import { getTeamMembership } from '../memberships';
 
-export const getUserPermissions = async ({
-  teamName,
-}: {
-  teamName: string;
-}) => {
+export const getUserPermissions = async (teamName: string) => {
   try {
     const teamMembership = await getTeamMembership({ teamName });
     const account = await getAccount();

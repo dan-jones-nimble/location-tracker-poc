@@ -19,7 +19,7 @@ export default function RootLayout(props: {
   const getUser = useCallback(async () => {
     if (pathname !== '/login') {
       const account = await getAccount();
-      const userPermissions = await getUserPermissions({ teamName: 'Admin' });
+      const userPermissions = await getUserPermissions('Admin');
       if (userPermissions) setPermissions(userPermissions);
 
       setLoading(false);
@@ -36,11 +36,7 @@ export default function RootLayout(props: {
       <Head>
         <title>Welcome to admin-panel!</title>
       </Head>
-      <body>
-        {!loading && props.children}
-        {!loading && permissions.includes('plan_routes') && props.planner}
-        {!loading && permissions.includes('read_routes') && props.reader}
-      </body>
+      <body>{!loading && props.children}</body>
     </html>
   );
 }

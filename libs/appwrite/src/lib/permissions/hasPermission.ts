@@ -7,8 +7,8 @@ export const hasPermission = async ({
   teamName: string;
   permission: string;
 }) => {
-  const permissions = await getUserPermissions({ teamName });
-  console.log('permissions: ', permissions);
+  const permissions = await getUserPermissions(teamName);
+
   if (permissions) return permissions.includes(permission);
   return false;
 };
