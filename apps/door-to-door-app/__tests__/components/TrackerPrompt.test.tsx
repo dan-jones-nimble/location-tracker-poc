@@ -11,6 +11,11 @@ jest.mock('@nx-expo/location', () => ({
   stopLocationTracking: () => new Promise(() => mockStopLocationTracking()),
 }));
 
+jest.mock("@react-native-async-storage/async-storage", () => ({
+  setItem: jest.fn(() => Promise.resolve()),
+  getItem: jest.fn(() => Promise.resolve()),
+}));
+
 describe("TrackerPrompt", () => {
   it("renders you must accept tracking", () => {
     const tree = render(<TrackerPrompt />);
@@ -35,12 +40,8 @@ describe("TrackerPrompt", () => {
   });
 
   it("location tracking permission is granted, location tracking is started", async () => {
-    mockRequestPermissions.mockImplementation((res) => {
-      res();
-    });
-    mockStartLocationTracking.mockImplementation((res) => {
-      res();
-    });
+    mockRequestPermissions.mockImplementation((res) => res());
+    mockStartLocationTracking.mockImplementation((res) => res());
     const tree = render(<TrackerPrompt />);
     await waitFor(() =>
       expect(mockStartLocationTracking).toHaveBeenCalled());
@@ -49,10 +50,16 @@ describe("TrackerPrompt", () => {
     expect(tree).toMatchSnapshot();
   });
 
+  it("location tracking permission is granted, 'New Route' button is present", async () => {
+    mockRequestPermissions.mockImplementation((res) => res());
+    mockStartLocationTracking.mockImplementation((res) => res());
+    render(<TrackerPrompt />);
+    await waitFor(() =>
+      expect(screen.queryByRole("button")).toBeTruthy());
+  });
+
   it("location tracking permission is granted, error tracking location", async () => {
-    mockRequestPermissions.mockImplementation((res) => {
-      res();
-    });
+    mockRequestPermissions.mockImplementation((res) => res());
     mockStartLocationTracking.mockImplementation((_, err) => {
       err({ message: 'error tracking location' });
     });
