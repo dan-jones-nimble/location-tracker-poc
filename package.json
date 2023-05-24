@@ -6,7 +6,8 @@
     "start:door": "nx start door-to-door-app",
     "start:delivery": "nx start delivery-app",
     "start:admin": "nx serve admin-panel",
-    "test:door": "nx test door-to-door-app"
+    "test:door": "nx test door-to-door-app",
+    "test:components": "nx test components"
   },
   "private": true,
   "dependencies": {
@@ -82,6 +83,7 @@
     "metro": "0.74.1",
     "metro-resolver": "0.74.1",
     "node-appwrite": "^9.0.0",
+    "mock-async-storage": "^2.2.0",
     "nx": "16.1.4",
     "nx-cloud": "latest",
     "prettier": "^2.6.2",

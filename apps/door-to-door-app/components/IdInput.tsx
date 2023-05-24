@@ -24,7 +24,7 @@ export const IdInput = () => {
         placeholder="123456"
         autoFocus
         maxLength={6}
-        onChange={(event) => handleTextChange(event.nativeEvent.text)}
+        onChangeText={(text) => handleTextChange(text)}
       />
     </View>
   );

@@ -51,6 +51,7 @@ export const LoginScreen = () => {
           keyboardType="email-address"
           returnKeyType="next"
           textAlign="center"
+          testID="email"
         />
         <TextInput
           style={styles.textInput}
@@ -62,6 +63,7 @@ export const LoginScreen = () => {
           returnKeyType="done"
           secureTextEntry
           textAlign="center"
+          testID="password"
         />
       </View>
       <WobbleButton title="Log In" onPress={submitCredentials} />
