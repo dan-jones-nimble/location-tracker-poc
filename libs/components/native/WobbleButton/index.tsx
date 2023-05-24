@@ -1,12 +1,7 @@
-import { useCallback, useEffect, useRef } from 'react';
-import {
-  Animated,
-  Button as RNButton,
-  ButtonProps as RNButtonProps,
-  StyleSheet
-} from 'react-native';
+import { useCallback, useRef } from 'react';
+import { Animated, Button, ButtonProps, StyleSheet } from 'react-native';
 
-export const Button = (props: RNButtonProps & { triggerWobble: boolean }) => {
+export const WobbleButton = (props: ButtonProps) => {
   const anim = useRef(new Animated.Value(0));
 
   const wobble = useCallback(() => {
@@ -32,13 +27,16 @@ export const Button = (props: RNButtonProps & { triggerWobble: boolean }) => {
     ).start();
   }, []);
 
-  useEffect(() => {
-    if (props.triggerWobble) wobble();
-  }, [props]);
+  const handlePress = async (e) => {
+    const response = props.onPress(e);
+    if (response) {
+      wobble();
+    }
+  };
 
   return (
     <Animated.View style={styles(anim).animatedView}>
-      <RNButton mode="contained" {...props} />
+      <Button mode="contained" {...props} onPress={handlePress} />
     </Animated.View>
   );
 };

@@ -24,6 +24,12 @@
         "UIBackgroundModes": [
           "location",
           "fetch"
+        ],
+        "UIInterfaceOrientation": "UIInterfaceOrientationPortrait",
+        "UISupportedInterfaceOrientations": [
+          "UIInterfaceOrientationPortrait",
+          "UIInterfaceOrientationLandscapeLeft",
+          "UIInterfaceOrientationLandscapeRight"
         ]
       }
     },
