@@ -1,11 +1,13 @@
 import { Databases, ID } from 'appwrite';
 import { LocationObject } from 'expo-location';
+import { getRouteId } from '@nx-expo/storage';
 import { getAccount } from '../../auth';
 import { client } from '../../client';
 
 export const sendLocationPing = async (location: LocationObject) => {
   const databases = new Databases(client);
   const account = await getAccount();
+  const currentRouteId = await getRouteId();
   databases
     .createDocument(
       '645cb634dee5541fe541',
@@ -13,11 +15,11 @@ export const sendLocationPing = async (location: LocationObject) => {
       ID.unique(),
       {
         user_id: account['$id'],
-        route_id: '1',
+        route_id: currentRouteId,
         altitude: location.coords.altitude,
         latitude: location.coords.latitude,
         longitude: location.coords.longitude,
-        timestamp: location.timestamp,
+        timestamp: location.timestamp
       }
     )
     .catch((error) => {
