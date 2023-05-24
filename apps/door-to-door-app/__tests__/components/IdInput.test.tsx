@@ -1,4 +1,4 @@
-import { render, fireEvent, waitFor } from '@testing-library/react-native';
+import { render, fireEvent, waitFor, screen } from '@testing-library/react-native';
 import { IdInput } from '../../components/IdInput';
 
 const mockPush = jest.fn();
@@ -22,21 +22,21 @@ describe("IdInput", () => {
 		expect(mockPush).not.toHaveBeenCalled();
 	});
 
-	it("text change, route id length is 6, router push is called", () => {
+	it("text change, route id length is 6, router push is called", async () => {
 		const text = "123456";
 		const tree = render(<IdInput />);
 		const textInput = tree.getByPlaceholderText("123456");
-		fireEvent.changeText(textInput, { target: { value: text } });
-		waitFor(() => expect(mockPush).toBeCalledWith(`/jobList?routeId=${text}`));
+		fireEvent.changeText(textInput, text);
+		await waitFor(() => expect(mockPush).toBeCalledWith(`/jobList?routeId=${text}`));
 		expect(tree).toMatchSnapshot();
 	});
 
-	it("text change, route id length is greater than 6, router push is called", () => {
+	it("text change, route id length is greater than 6, router push is called", async () => {
 		const text = "abcdefghijklmno";
 		const tree = render(<IdInput />);
 		const textInput = tree.getByPlaceholderText("123456");
 		fireEvent.changeText(textInput, { target: { value: text } });
-		waitFor(() => expect(mockPush).toBeCalledWith(`/jobList?routeId=${text}`));
+		await waitFor(() => expect(mockPush).toBeCalledWith(`/jobList?routeId=${text}`));
 		expect(tree).toMatchSnapshot();
 	});
 

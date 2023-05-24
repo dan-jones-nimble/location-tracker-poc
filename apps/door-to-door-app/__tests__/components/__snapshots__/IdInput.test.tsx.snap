@@ -40,7 +40,7 @@ exports[`IdInput text change, route id length is 6, router push is called 1`] = 
     autoFocus={true}
     inputMode="numeric"
     maxLength={6}
-    onChange={[Function]}
+    onChangeText={[Function]}
     placeholder="123456"
     style={
       {

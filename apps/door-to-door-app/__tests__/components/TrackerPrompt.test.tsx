@@ -11,11 +11,6 @@ jest.mock('@nx-expo/location', () => ({
   stopLocationTracking: () => new Promise(() => mockStopLocationTracking()),
 }));
 
-jest.mock("@react-native-async-storage/async-storage", () => ({
-  setItem: jest.fn(() => Promise.resolve()),
-  getItem: jest.fn(() => Promise.resolve()),
-}));
-
 describe("TrackerPrompt", () => {
   it("renders you must accept tracking", () => {
     const tree = render(<TrackerPrompt />);
