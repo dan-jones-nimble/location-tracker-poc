@@ -21,3 +21,4 @@ web-build/
 
 # Next.js
 #.next/
+apps/delivery-app-e2e/artifacts

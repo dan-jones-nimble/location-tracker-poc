@@ -12,7 +12,7 @@
     "declaration": true
   },
   "files": ["../../node_modules/@nx/expo/typings/svg.d.ts"],
-  "include": ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx"],
+  "include": [],
   "references": [
     {
       "path": "./tsconfig.app.json"
