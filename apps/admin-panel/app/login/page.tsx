@@ -33,7 +33,7 @@ export default function LoginPage() {
         password: credentials.password,
       });
       setError('');
-      push('/');
+      window.location.reload();
     } catch (e: any) {
       setError(e.message);
     }
