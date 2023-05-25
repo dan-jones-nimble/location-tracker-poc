@@ -11,7 +11,6 @@ export const sendLocationPing = async (location: LocationObject) => {
     routeId: currentRouteId,
     location
   });
-  console.log(payloadData);
 
   functions
     .createExecution('646b5f178fa8d045a8cf', payloadData)
