@@ -7,7 +7,9 @@
     "start:delivery": "nx start delivery-app",
     "start:admin": "nx serve admin-panel",
     "test:door": "nx test door-to-door-app",
-    "test:components": "nx test components"
+    "test:door:updateSnapshots": "nx test:updateSnapshots door-to-door-app",
+    "test:components": "nx test components",
+    "test:components:updateSnapshots": "nx test:updateSnapshots components"
   },
   "private": true,
   "dependencies": {

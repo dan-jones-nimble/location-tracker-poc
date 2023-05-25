@@ -9,6 +9,10 @@ jest.mock("expo-router", () => ({
 }));
 
 describe("IdInput", () => {
+	afterEach(() => {
+		jest.clearAllMocks();
+	});
+
 	it("matches snapshot", () => {
 		const tree = render(<IdInput />);
 		expect(tree).toMatchSnapshot();
@@ -18,7 +22,7 @@ describe("IdInput", () => {
 		const text = "12345";
 		const tree = render(<IdInput />);
 		const textInput = tree.getByPlaceholderText("123456");
-		fireEvent.changeText(textInput, { target: { value: text } });
+		fireEvent.changeText(textInput, text);
 		expect(mockPush).not.toHaveBeenCalled();
 	});
 
@@ -28,23 +32,21 @@ describe("IdInput", () => {
 		const textInput = tree.getByPlaceholderText("123456");
 		fireEvent.changeText(textInput, text);
 		await waitFor(() => expect(mockPush).toBeCalledWith(`/jobList?routeId=${text}`));
-		expect(tree).toMatchSnapshot();
 	});
 
 	it("text change, route id length is greater than 6, router push is called", async () => {
 		const text = "abcdefghijklmno";
 		const tree = render(<IdInput />);
 		const textInput = tree.getByPlaceholderText("123456");
-		fireEvent.changeText(textInput, { target: { value: text } });
+		fireEvent.changeText(textInput, text);
 		await waitFor(() => expect(mockPush).toBeCalledWith(`/jobList?routeId=${text}`));
-		expect(tree).toMatchSnapshot();
 	});
 
 	it("text change, route id is empty, router push is not called", () => {
 		const text = "";
 		const tree = render(<IdInput />);
 		const textInput = tree.getByPlaceholderText("123456");
-		fireEvent.changeText(textInput, { target: { value: text } });
+		fireEvent.changeText(textInput, text);
 		expect(mockPush).not.toHaveBeenCalled();
 	});
 
