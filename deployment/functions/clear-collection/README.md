@@ -1,26 +1,31 @@
-# clear-collection
+# Wipe an Appwrite collection
 
-Welcome to the documentation of this function 👋 We strongly recommend keeping this file in sync with your function's logic to make sure anyone can easily understand your function in the future. If you don't need documentation, you can remove this file.
-
-## 🤖 Documentation
-
-Simple function similar to typical "hello world" example, but instead, we return a simple JSON that tells everyone how awesome developers are.
-
-<!-- Update with your description, for example 'Create Stripe payment and return payment URL' -->
+A Node Cloud Function that wipes out all the documents inside a collection.
 
 _Example input:_
 
-This function expects no input
+```json
+{
+    "databaseId": "stage",
+    "collectionId": "profiles"
+}
+```
 
-<!-- If input is expected, add example -->
-
-_Example output:_
-
-<!-- Update with your expected output -->
+_Example output (success):_
 
 ```json
 {
- "areDevelopersAwesome": true
+    "success": true,
+    "sum": 2
+}
+```
+
+_Example output (failure):_
+
+```json
+{
+    "success": false,
+    "message": "Collection not found."
 }
 ```
 
@@ -28,20 +33,57 @@ _Example output:_
 
 List of environment variables used by this cloud function:
 
-- **APPWRITE_FUNCTION_ENDPOINT** - Endpoint of Appwrite project
+- **APPWRITE_FUNCTION_ENDPOINT** - Endpoint of your Appwrite server
 - **APPWRITE_FUNCTION_API_KEY** - Appwrite API Key
-<!-- Add your custom environment variables -->
+- **APPWRITE_FUNCTION_PROJECT_ID** - Appwrite project ID. If running on Appwrite, this variable is provided automatically.
 
 ## 🚀 Deployment
 
-There are two ways of deploying the Appwrite function, both having the same results, but each using a different process. We highly recommend using CLI deployment to achieve the best experience.
+1. Clone this repository, and enter this function folder:
 
-### Using CLI
+```
+$ git clone https://github.com/open-runtimes/examples.git && cd examples
+$ cd node/wipe_appwrite_collection
+```
 
-Make sure you have [Appwrite CLI](https://appwrite.io/docs/command-line#installation) installed, and you have successfully logged into your Appwrite server. To make sure Appwrite CLI is ready, you can use the command `appwrite client --debug` and it should respond with green text `✓ Success`.
+2. Enter this function folder and build the code:
+```
+docker run --rm --interactive --tty --volume $PWD:/usr/code openruntimes/node:v2-18.0 sh /usr/local/src/build.sh
+```
+As a result, a `code.tar.gz` file will be generated.
 
-Make sure you are in the same folder as your `appwrite.json` file and run `appwrite deploy function` to deploy your function. You will be prompted to select which functions you want to deploy.
+3. Start the Open Runtime:
+```
+docker run -p 3000:3000 -e INTERNAL_RUNTIME_KEY=secret-key -e INTERNAL_RUNTIME_ENTRYPOINT=index.js --rm --interactive --tty --volume $PWD/code.tar.gz:/tmp/code.tar.gz:ro openruntimes/node:v2-18.0 sh /usr/local/src/start.sh
+```
 
-### Manual using tar.gz
+Your function is now listening on port `3000`, and you can execute it by sending `POST` request with appropriate authorization headers. To learn more about runtime, you can visit Node runtime [README](https://github.com/open-runtimes/open-runtimes/tree/main/runtimes/node-18.0).
 
-Manual deployment has no requirements and uses Appwrite Console to deploy the tag. First, enter the folder of your function. Then, create a tarball of the whole folder and gzip it. After creating `.tar.gz` file, visit Appwrite Console, click on the `Deploy Tag` button and switch to the `Manual` tab. There, set the `entrypoint` to `src/index.js`, and upload the file we just generated.
+4. Execute function:
+
+```
+curl http://localhost:3000/ -d '{"variables":{"APPWRITE_FUNCTION_ENDPOINT":"YOUR_ENDPOINT","APPWRITE_FUNCTION_PROJECT_ID":"YOUR_PROJECT_ID","APPWRITE_FUNCTION_API_KEY":"YOUR_API_KEY"},"payload":"{\"databaseId\":\"stage\",\"collectionId\":\"profiles\"}"}' -H "X-Internal-Challenge: secret-key" -H "Content-Type: application/json"
+```
+
+## 🚀 Deployment using Appwrite
+
+1. Clone this repository, and enter this function folder:
+```
+$ git clone https://github.com/open-runtimes/examples.git && cd examples
+$ cd node/wipe_appwrite_collection
+```
+
+2. Enter this function folder and build the code:
+```
+docker run --rm --interactive --tty --volume $PWD:/usr/code openruntimes/node:18.0 sh /usr/local/src/build.sh
+```
+As a result, a `code.tar.gz` file will be generated.
+
+3. Add a new function to appwrite server. Upload the code.tar.gz file manually. Set index.js as entrypoint.
+
+4. Execute the function. Pass collection ID and database ID as shown in example input and execute the function.
+
+
+## 📝 Notes
+- This function is designed for use with Appwrite Cloud Functions. You can learn more about it in [Appwrite docs](https://appwrite.io/docs/functions).
+- This example is compatible with Node 18.0. Other versions may work but are not guaranteed to work as they haven't been tested.

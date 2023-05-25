@@ -8,7 +8,6 @@ module.exports = async function (req, res) {
     !req.variables['APPWRITE_FUNCTION_ENDPOINT'] ||
     !req.variables['APPWRITE_FUNCTION_API_KEY'] ||
     !req.variables['DATABASE_ID'] ||
-    !req.variables['LOCATION_PINGS_COLLECTION_ID'] ||
     !req.variables['ROUTES_COLLECTION_ID']
   ) {
     res.json({ success: false, message: 'Variables missing.' });

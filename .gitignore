@@ -20,5 +20,4 @@ web-build/
 /.idea/*
 
 # Next.js
-#.next/
-apps/delivery-app-e2e/artifacts
+.next/
