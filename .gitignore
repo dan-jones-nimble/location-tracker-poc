@@ -20,4 +20,4 @@ web-build/
 /.idea/*
 
 # Next.js
-#.next/
+.next/
