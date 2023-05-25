@@ -14,59 +14,7 @@ exports[`IdInput matches snapshot 1`] = `
     autoFocus={true}
     inputMode="numeric"
     maxLength={6}
-    onChange={[Function]}
-    placeholder="123456"
-    style={
-      {
-        "display": "flex",
-        "fontSize": 16,
-      }
-    }
-  />
-</View>
-`;
-
-exports[`IdInput text change, route id length is 6, router push is called 1`] = `
-<View
-  style={
-    {
-      "alignItems": "center",
-      "flex": 1,
-      "justifyContent": "center",
-    }
-  }
->
-  <TextInput
-    autoFocus={true}
-    inputMode="numeric"
-    maxLength={6}
     onChangeText={[Function]}
-    placeholder="123456"
-    style={
-      {
-        "display": "flex",
-        "fontSize": 16,
-      }
-    }
-  />
-</View>
-`;
-
-exports[`IdInput text change, route id length is greater than 6, router push is called 1`] = `
-<View
-  style={
-    {
-      "alignItems": "center",
-      "flex": 1,
-      "justifyContent": "center",
-    }
-  }
->
-  <TextInput
-    autoFocus={true}
-    inputMode="numeric"
-    maxLength={6}
-    onChange={[Function]}
     placeholder="123456"
     style={
       {
