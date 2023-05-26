@@ -1,0 +1,169 @@
+{
+    "projectId": "646c9ce56b39f590949d",
+    "projectName": "POC Location",
+    "teams": [
+        {
+            "$id": "646357a0df0db2af9cb1",
+            "name": "Admin"
+        },
+        {
+            "$id": "646357b7118b141dd14a",
+            "name": "Scrubs"
+        }
+    ],
+    "functions": [
+        {
+            "$id": "646b5f178fa8d045a8cf",
+            "name": "store-location-ping",
+            "runtime": "node-16.0",
+            "path": "functions/store-location-ping",
+            "entrypoint": "src/index.js",
+            "ignore": [
+                "node_modules",
+                ".npm"
+            ],
+            "execute": [
+                "team:646357b7118b141dd14a"
+            ],
+            "events": [],
+            "schedule": "",
+            "timeout": 15
+        },
+        {
+            "$id": "646cccd070c9ce248caa",
+            "name": "clear-collection",
+            "runtime": "node-16.0",
+            "path": "functions/clear-collection",
+            "entrypoint": "src/index.js",
+            "ignore": [
+                "node_modules",
+                ".npm"
+            ],
+            "execute": [],
+            "events": [],
+            "schedule": "",
+            "timeout": 15
+        }
+    ],
+    "databases": [
+        {
+            "$id": "645cb634dee5541fe541",
+            "name": "development",
+            "$createdAt": "2023-05-23T13:21:40.655+00:00",
+            "$updatedAt": "2023-05-23T13:21:43.664+00:00"
+        }
+    ],
+    "collections": [
+        {
+            "$id": "645cb63abc197066cd6e",
+            "$permissions": [
+                "create(\"team:646357b7118b141dd14a\")"
+            ],
+            "databaseId": "645cb634dee5541fe541",
+            "name": "location_pings",
+            "enabled": true,
+            "documentSecurity": false,
+            "attributes": [
+                {
+                    "key": "longitude",
+                    "type": "double",
+                    "status": "available",
+                    "required": true,
+                    "array": false,
+                    "min": -1.7976931348623157e+308,
+                    "max": 1.7976931348623157e+308,
+                    "default": null
+                },
+                {
+                    "key": "latitude",
+                    "type": "double",
+                    "status": "available",
+                    "required": true,
+                    "array": false,
+                    "min": -1.7976931348623157e+308,
+                    "max": 1.7976931348623157e+308,
+                    "default": null
+                },
+                {
+                    "key": "user_id",
+                    "type": "string",
+                    "status": "available",
+                    "required": true,
+                    "array": false,
+                    "size": 512,
+                    "default": null
+                },
+                {
+                    "key": "altitude",
+                    "type": "double",
+                    "status": "available",
+                    "required": true,
+                    "array": false,
+                    "min": -1.7976931348623157e+308,
+                    "max": 1.7976931348623157e+308,
+                    "default": null
+                },
+                {
+                    "key": "timestamp",
+                    "type": "double",
+                    "status": "available",
+                    "required": true,
+                    "array": false,
+                    "min": -1.7976931348623157e+308,
+                    "max": 1.7976931348623157e+308,
+                    "default": null
+                },
+                {
+                    "key": "route_id",
+                    "type": "relationship",
+                    "status": "available",
+                    "required": false,
+                    "array": false,
+                    "relatedCollection": "645cb7e83d7c44b6eaf8",
+                    "relationType": "oneToMany",
+                    "twoWay": true,
+                    "twoWayKey": "location_pings",
+                    "onDelete": "cascade",
+                    "side": "child"
+                }
+            ],
+            "indexes": []
+        },
+        {
+            "$id": "645cb7e83d7c44b6eaf8",
+            "$permissions": [
+                "read(\"team:read_routes\")",
+                "create(\"team:write_routes\")"
+            ],
+            "databaseId": "645cb634dee5541fe541",
+            "name": "routes",
+            "enabled": true,
+            "documentSecurity": false,
+            "attributes": [
+                {
+                    "key": "user_id",
+                    "type": "string",
+                    "status": "available",
+                    "required": true,
+                    "array": false,
+                    "size": 256,
+                    "default": null
+                },
+                {
+                    "key": "location_pings",
+                    "type": "relationship",
+                    "status": "available",
+                    "required": false,
+                    "array": false,
+                    "relatedCollection": "645cb63abc197066cd6e",
+                    "relationType": "oneToMany",
+                    "twoWay": true,
+                    "twoWayKey": "route_id",
+                    "onDelete": "cascade",
+                    "side": "parent"
+                }
+            ],
+            "indexes": []
+        }
+    ]
+}

@@ -7,14 +7,15 @@ import { useLoggedIn } from '@nx-expo/context';
 
 // Appwrite
 import { emailLogin, ICredentials } from '@nx-expo/appwrite';
-import { Button } from '../../Button';
+
+// Components
+import { WobbleButton } from '../../WobbleButton';
 
 export const LoginScreen = () => {
   const [credentials, setCredentials] = useState<ICredentials>({
     email: '',
     password: ''
   });
-  const [triggerWobble, setTriggerWobble] = useState<boolean>(false);
   const { logIn } = useLoggedIn();
 
   const handleInput = (name: string, value: string) => {
@@ -22,16 +23,18 @@ export const LoginScreen = () => {
       ...prevState,
       [name]: value
     }));
-    setTriggerWobble(false);
   };
 
-  const submitCredentials = async () => {
-    emailLogin({
+  const submitCredentials = () => {
+    return emailLogin({
       email: credentials.email,
       password: credentials.password
     })
       .then(logIn)
-      .catch(() => setTriggerWobble(true));
+      .catch((e) => {
+        console.log(e);
+        return true;
+      });
   };
 
   return (
@@ -39,26 +42,29 @@ export const LoginScreen = () => {
       <View>
         <TextInput
           style={styles.textInput}
-          onChange={(e) => handleInput('email', e.nativeEvent.text)}
+          onChangeText={(text) => handleInput('email', text)}
           autoCapitalize="none"
+          autoCorrect={false}
           autoComplete="email"
           autoFocus
+          inputMode="email"
+          keyboardType="email-address"
+          returnKeyType="next"
           textAlign="center"
         />
         <TextInput
           style={styles.textInput}
-          onChange={(e) => handleInput('password', e.nativeEvent.text)}
+          onChangeText={(text) => handleInput('password', text)}
           aria-hidden
           autoCapitalize="none"
+          autoCorrect={false}
           autoComplete="current-password"
+          returnKeyType="done"
+          secureTextEntry
           textAlign="center"
         />
       </View>
-      <Button
-        title="Log In"
-        onPress={submitCredentials}
-        triggerWobble={triggerWobble}
-      />
+      <WobbleButton title="Log In" onPress={submitCredentials} />
     </View>
   );
 };
