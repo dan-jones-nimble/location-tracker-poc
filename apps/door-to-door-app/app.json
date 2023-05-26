@@ -1,9 +1,9 @@
 {
   "expo": {
-    "scheme": "acme",
     "name": "DoorToDoor",
     "slug": "door-to-door-app",
     "version": "1.0.0",
+    "scheme": "acme",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {

@@ -3,6 +3,7 @@
     "name": "DeliveryApp",
     "slug": "delivery-app",
     "version": "1.0.0",
+    "scheme": "acme",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
