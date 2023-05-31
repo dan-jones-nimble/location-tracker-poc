@@ -1,9 +1,10 @@
 // Imports
 import { useCallback, useEffect, useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { SplashScreen } from 'expo-router';
 
 // Components
+import { EnterRouteIdScreen } from '../screens/EnterRouteId';
 import { LoginScreen } from '@nx-expo/components';
 
 // Contexts
@@ -30,7 +31,7 @@ export default function HomeScreen() {
     <View style={styles.container}>
       {loading && <SplashScreen />}
       {!loading && !isLoggedIn && <LoginScreen />}
-      {!loading && isLoggedIn && <Text>Delivery</Text>}
+      {!loading && isLoggedIn && <EnterRouteIdScreen />}
     </View>
   );
 }
