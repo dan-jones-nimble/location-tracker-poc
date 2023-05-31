@@ -4,7 +4,7 @@ import { StyleSheet, View } from 'react-native';
 import { SplashScreen } from 'expo-router';
 
 // Components
-import { TrackerPrompt } from '../components';
+import { TrackingScreen } from '../screens';
 import { LoginScreen } from '@nx-expo/components';
 
 // Contexts
@@ -30,8 +30,8 @@ export default function HomeScreen() {
   return (
     <View style={styles.container}>
       {loading && <SplashScreen />}
-      {!loading && isLoggedIn && <TrackerPrompt />}
       {!loading && !isLoggedIn && <LoginScreen />}
+      {!loading && isLoggedIn && <TrackingScreen />}
     </View>
   );
 }

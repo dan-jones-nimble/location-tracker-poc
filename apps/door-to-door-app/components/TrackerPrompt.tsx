@@ -1,5 +1,6 @@
 // Imports
 import { Button, StyleSheet, Text, View } from 'react-native';
+import { useEffect, useState } from 'react';
 
 // Components
 import { Separator } from '@nx-expo/components';
@@ -11,12 +12,22 @@ import { useLocationTracking } from '@nx-expo/context';
 import { newRouteId } from '../utils';
 
 export const TrackerPrompt = () => {
-  // TODO: wth
   const { currentlyTracking, locationTrackingError } = useLocationTracking();
+  const locationText = 'You must accept tracking';
+  const [text, setText] = useState<string>(locationText);
+
+  useEffect(() => {
+    if (currentlyTracking) {
+      setText('You are being tracked...');
+    }
+    if (locationTrackingError) {
+      setText(`You aren't being tracked...\n${locationTrackingError.display}`);
+    }
+  }, [locationTrackingError, currentlyTracking]);
 
   return (
     <View style={styles.container}>
-      <Text>{`You aren't being tracked...\\n${locationTrackingError.display}`}</Text>
+      <Text>{text}</Text>
       {currentlyTracking && (
         <View style={styles.subContainer}>
           <Separator />
