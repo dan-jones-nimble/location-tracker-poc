@@ -1,66 +1,54 @@
-// import { useRouter } from 'expo-router';
-import { StyleSheet, TextInput, View, Text } from 'react-native';
-import { getLocationPings } from '@nx-expo/appwrite';
-import { useState, useEffect } from 'react';
-import { LocationObject } from 'expo-location';
-import getDirections from 'react-native-google-maps-directions';
+import { useEffect, useState } from 'react';
+import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
+import { getLocationPings, MinimalLocationObject } from '@nx-expo/appwrite';
+import { openURL } from 'expo-linking';
+
+const buildWaypointsUrl = (waypoints: Array<MinimalLocationObject>) => {
+  const firstWaypoint = waypoints.shift();
+  const lastWaypoint = waypoints.pop();
+  const remainingWaypoints = waypoints.map(
+    (locationObject: MinimalLocationObject) => ({
+      latitude: locationObject.latitude,
+      longitude: locationObject.longitude
+    })
+  );
+
+  const originParam = `origin=${firstWaypoint.latitude},${firstWaypoint.longitude}`;
+  const destinationParam = `destination=${lastWaypoint.latitude},${lastWaypoint.longitude}`;
+  const waypointsParam = `waypoints=${remainingWaypoints
+    .map((waypoint) => `${waypoint.latitude},${waypoint.longitude}`)
+    .join('|')}`;
+
+  return `https://www.google.com/maps/dir/?api=1&${destinationParam}&${originParam}&${waypointsParam}`;
+};
 
 export const IdInput = () => {
-  // const router = useRouter();
-  const [locationResponse, setLocationResponse] =
-    useState<Array<LocationObject>>();
+  const [locationResponse, setLocationResponse] = useState<
+    Array<MinimalLocationObject>
+  >([]);
 
   const handleTextChange = (routeId: string) => {
     if (routeId.length >= 36) {
       getLocationPings(routeId).then((pings) => {
-        // router.push(`/jobList?routeId=${routeId}`);
         setLocationResponse(pings);
       });
     }
   };
 
   useEffect(() => {
-    if (locationResponse && locationResponse?.length > 0) {
-      console.log("location response: " + JSON.stringify(locationResponse));
-      const waypoints = locationResponse;
-      const firstWaypoint = waypoints.shift()!;
-      const lastWaypoint = waypoints.pop()!;
-      const remainingWaypoints = waypoints.map(waypoint => {
-        console.log("waypoint: " + JSON.stringify(waypoint));
-        return {
-          latitude: waypoint.latitude,
-          longitude: waypoint.longitude
-        }
-      });
-      const data = {
-        source: {
-          latitude: firstWaypoint.latitude,
-          longitude: firstWaypoint.longitude
-        },
-        destination: {
-          latitude: lastWaypoint.latitude,
-          longitude: lastWaypoint.longitude
-        },
-        params: [
-          {
-            key: "travelmode",
-            value: "driving"
-          },
-          {
-            key: "dir_action",
-            value: "navigate"
-          }
-        ],
-        waypoints: remainingWaypoints
-      }
-      getDirections(data);
+    if (locationResponse?.length > 0) {
+      const gMapsUrl = buildWaypointsUrl(locationResponse);
+      openURL(gMapsUrl).catch((error) => console.error(error));
     }
   }, [locationResponse]);
 
   return (
     <View style={styles.container}>
-      {locationResponse ? (
-        <Text>{JSON.stringify(locationResponse)}</Text>
+      {locationResponse.length > 0 ? (
+        <View>
+          <Text>{JSON.stringify(locationResponse)}</Text>
+          <Button title="Refresh" onPress={() => setLocationResponse([])} />
+        </View>
       ) : (
         <TextInput
           style={styles.textInput}

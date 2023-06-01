@@ -1,10 +1,16 @@
 import { Functions } from 'appwrite';
 import { client } from '../../client';
-import { LocationObject } from 'expo-location';
+
+export interface MinimalLocationObject {
+  altitude: number;
+  latitude: number;
+  longitude: number;
+  timestamp: number;
+}
 
 export const getLocationPings = async (
   routeId: string
-): Promise<Array<LocationObject>> => {
+): Promise<Array<MinimalLocationObject>> => {
   const functions = new Functions(client);
 
   const payloadData = JSON.stringify({
@@ -16,13 +22,13 @@ export const getLocationPings = async (
     .then((execution) => {
       const response: {
         code: number;
-        message: Array<LocationObject>;
+        message: Array<MinimalLocationObject>;
       } = JSON.parse(execution.response);
       console.log('Success: ', response);
       return response.message;
     })
     .catch((error) => {
-      console.error('Error pinging: ', error);
+      console.error('Error getting location: ', error);
       return [];
     });
 };
