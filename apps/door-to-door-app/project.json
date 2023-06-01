@@ -7,7 +7,9 @@
     "start": {
       "executor": "@nx/expo:start",
       "options": {
-        "tunnel": false
+        "tunnel": false,
+        "port": 19001,
+        "clear": true
       }
     },
     "serve": {

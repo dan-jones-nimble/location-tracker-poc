@@ -1,8 +1,9 @@
 // import { useRouter } from 'expo-router';
 import { StyleSheet, TextInput, View, Text } from 'react-native';
 import { getLocationPings } from '@nx-expo/appwrite';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { LocationObject } from 'expo-location';
+import getDirections from 'react-native-google-maps-directions';
 
 export const IdInput = () => {
   // const router = useRouter();
@@ -17,6 +18,44 @@ export const IdInput = () => {
       });
     }
   };
+
+  useEffect(() => {
+    if (locationResponse && locationResponse?.length > 0) {
+      console.log("location response: " + JSON.stringify(locationResponse));
+      const waypoints = locationResponse;
+      const firstWaypoint = waypoints.shift()!;
+      const lastWaypoint = waypoints.pop()!;
+      const remainingWaypoints = waypoints.map(waypoint => {
+        console.log("waypoint: " + JSON.stringify(waypoint));
+        return {
+          latitude: waypoint.latitude,
+          longitude: waypoint.longitude
+        }
+      });
+      const data = {
+        source: {
+          latitude: firstWaypoint.latitude,
+          longitude: firstWaypoint.longitude
+        },
+        destination: {
+          latitude: lastWaypoint.latitude,
+          longitude: lastWaypoint.longitude
+        },
+        params: [
+          {
+            key: "travelmode",
+            value: "driving"
+          },
+          {
+            key: "dir_action",
+            value: "navigate"
+          }
+        ],
+        waypoints: remainingWaypoints
+      }
+      getDirections(data);
+    }
+  }, [locationResponse]);
 
   return (
     <View style={styles.container}>
