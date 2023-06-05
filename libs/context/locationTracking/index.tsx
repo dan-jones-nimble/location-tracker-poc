@@ -23,7 +23,8 @@ interface ILocationTrackingContext {
 }
 
 export const LocationTrackingContext = createContext<ILocationTrackingContext>({
-  currentlyTracking: false
+  currentlyTracking: false,
+  locationTrackingError: undefined
 });
 
 export const useLocationTracking = () => useContext(LocationTrackingContext);
