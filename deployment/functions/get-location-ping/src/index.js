@@ -29,7 +29,6 @@ module.exports = async function (req, res) {
       req.variables['ROUTES_COLLECTION_ID'],
       payloadJSON.routeId
     );
-    console.log(dbResponse);
 
     const functionResponse = dbResponse.location_pings.map((ping) => ({
       latitude: ping.latitude,
@@ -37,7 +36,6 @@ module.exports = async function (req, res) {
       altitude: ping.altitude,
       timestamp: ping.timestamp
     }));
-    console.log(functionResponse);
 
     res.json({ code: 200, message: functionResponse }, 200);
   } catch (error) {
