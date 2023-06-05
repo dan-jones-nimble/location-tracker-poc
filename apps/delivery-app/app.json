@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "DoorToDoor",
-    "slug": "door-to-door-app",
+    "name": "DeliveryApp",
+    "slug": "delivery-app",
     "version": "1.0.0",
     "scheme": "acme",
     "orientation": "portrait",

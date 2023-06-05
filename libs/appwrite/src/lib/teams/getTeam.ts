@@ -1,4 +1,4 @@
-import { getUserTeams } from '.';
+import { getUserTeams } from './getUserTeams';
 
 export const getTeam = async ({ teamName }: { teamName: string }) => {
   try {

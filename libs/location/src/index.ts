@@ -7,7 +7,6 @@ import {
   stopLocationUpdatesAsync
 } from 'expo-location';
 import { defineTask } from 'expo-task-manager';
-
 import { sendLocationPing } from '@nx-expo/appwrite';
 
 const BACKGROUND_LOCATION_TRACKING_TASK_NAME = 'background-location-task';
@@ -53,7 +52,6 @@ defineTask(BACKGROUND_LOCATION_TRACKING_TASK_NAME, ({ data, error }) => {
   }
   if (data) {
     const { locations } = data;
-    console.log(locations);
     locations.forEach(sendLocationPing);
   }
 });
