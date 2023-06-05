@@ -45,7 +45,7 @@ export const stopLocationTracking = async () => {
   }
 };
 
-defineTask(BACKGROUND_LOCATION_TRACKING_TASK_NAME, async ({ data, error }) => {
+defineTask(BACKGROUND_LOCATION_TRACKING_TASK_NAME, ({ data, error }) => {
   if (error) {
     console.log(error.message);
     return;
