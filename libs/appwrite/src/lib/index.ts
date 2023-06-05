@@ -4,4 +4,3 @@ export * from './databases';
 export * from './memberships';
 export * from './permissions';
 export * from './teams';
-export { teams } from './teams/teams';
