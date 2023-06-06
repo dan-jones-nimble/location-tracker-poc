@@ -27,7 +27,7 @@ module.exports = async function (req, res) {
       req.variables['DATABASE_ID'],
       req.variables['ROUTES_COLLECTION_ID'],
       [
-        sdk.Query.select(['DocumentID', 'user_id']),
+        // sdk.Query.select(['$id', 'user_id']),
         sdk.Query.equal('user_id', [userId])
       ]
     );
@@ -36,6 +36,7 @@ module.exports = async function (req, res) {
 
     res.json({ code: 200, message: dbResponse }, 200);
   } catch (error) {
+    console.log(error);
     res.json({ code: 500, message: error }, 500);
   }
 };
