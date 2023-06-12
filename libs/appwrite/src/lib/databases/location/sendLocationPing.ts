@@ -14,6 +14,6 @@ export const sendLocationPing = async (location: LocationObject) => {
 
   functions
     .createExecution('646b5f178fa8d045a8cf', payloadData)
-    .then((response) => console.log('Success: ', response))
-    .catch((error) => console.error('Error pinging: ', error));
+    // .then((response) => console.log('Success: ', response))
+    .catch((error) => console.error('Error storing location: ', error));
 };

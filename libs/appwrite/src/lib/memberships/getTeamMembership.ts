@@ -1,4 +1,5 @@
-import { getTeam, teams } from '../teams';
+import { getTeam } from '../teams';
+import { teams } from '../teams/teams';
 
 export const getTeamMembership = async ({ teamName }: { teamName: string }) => {
   try {
