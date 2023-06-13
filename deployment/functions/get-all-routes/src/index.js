@@ -27,7 +27,7 @@ module.exports = async function (req, res) {
       req.variables['DATABASE_ID'],
       req.variables['ROUTES_COLLECTION_ID'],
       [
-        // sdk.Query.select(['$id', 'user_id']),
+        // sdk.Query.select(['$id', 'user_id']), TODO: why doesnt this work?
         sdk.Query.equal('user_id', [userId])
       ]
     );

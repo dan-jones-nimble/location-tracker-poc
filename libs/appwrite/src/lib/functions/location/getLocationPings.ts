@@ -1,7 +1,7 @@
-import { Functions } from 'appwrite';
+import { Functions, Models } from 'appwrite';
 import { client } from '../../client';
 
-export interface MinimalLocationObject {
+export interface MinimalLocationObject extends Models.Document {
   altitude: number;
   latitude: number;
   longitude: number;

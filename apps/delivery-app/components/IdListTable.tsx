@@ -1,36 +1,16 @@
-import { MinimalLocationObject, RouteObject } from '@nx-expo/appwrite';
-import { openURL } from 'expo-linking';
 import { View, Text, StyleSheet, Pressable } from 'react-native';
+import { RouteObject } from '@nx-expo/appwrite';
 
-const buildGMapsUrl = (waypoints: Array<MinimalLocationObject>) => {
-  const firstWaypoint = waypoints.shift();
-  const lastWaypoint = waypoints.pop();
-  const remainingWaypoints = waypoints.map(
-    (locationObject: MinimalLocationObject) => ({
-      latitude: locationObject.latitude,
-      longitude: locationObject.longitude
-    })
-  );
+interface IdListTableProps {
+  routes: Array<RouteObject>;
+  onIdClick: (routeId: string) => void;
+}
 
-  const originParam = `origin=${firstWaypoint.latitude},${firstWaypoint.longitude}`;
-  const destinationParam = `destination=${lastWaypoint.latitude},${lastWaypoint.longitude}`;
-  const waypointsParam = `waypoints=${remainingWaypoints
-    .map((waypoint) => `${waypoint.latitude},${waypoint.longitude}`)
-    .join('|')}`;
-
-  return `https://www.google.com/maps/dir/?api=1&${destinationParam}&${originParam}&${waypointsParam}`;
-};
-
-export const IdListTable = (props: { routes: Array<RouteObject> }) => {
-  const handleButtonPress = (route: RouteObject) => {
-    const gMapsUrl = buildGMapsUrl(route.location_pings);
-    openURL(gMapsUrl).catch((error) => console.error(error));
-  };
-
+export const IdListTable = ({ routes, onIdClick }: IdListTableProps) => {
   return (
     <View style={styles.tableView}>
-      {props.routes.map((route) => (
-        <Pressable key={route.$id} onPress={() => handleButtonPress(route)}>
+      {routes.map((route) => (
+        <Pressable key={route.$id} onPress={() => onIdClick(route.$id)}>
           <Text style={styles.text}>{route.$id}</Text>
         </Pressable>
       ))}
@@ -45,8 +25,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center'
   },
+  separator: {
+    height: 2,
+    width: '80%',
+    backgroundColor: 'grey'
+  },
+  highlighted: {
+    backgroundColor: 'light-grey'
+  },
   text: {
     fontSize: 16,
-    lineHeight: 16
+    lineHeight: 16,
+    color: 'black'
   }
 });
