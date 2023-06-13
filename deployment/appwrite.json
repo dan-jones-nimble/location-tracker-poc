@@ -60,6 +60,23 @@
             "events": [],
             "schedule": "",
             "timeout": 15
+        },
+        {
+            "$id": "647efa781c57861518e5",
+            "name": "get-all-routes",
+            "runtime": "node-16.0",
+            "path": "functions/get-all-routes",
+            "entrypoint": "src/index.js",
+            "ignore": [
+                "node_modules",
+                ".npm"
+            ],
+            "execute": [
+                "team:646357b7118b141dd14a"
+            ],
+            "events": [],
+            "schedule": "",
+            "timeout": 15
         }
     ],
     "databases": [
